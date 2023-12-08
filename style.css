@@ -1,0 +1,12 @@
+html {
+  background-color: black;
+  color: white;
+}
+
+.grid {
+display: grid;
+grid-template-columns: repeat(10, 1fr);
+grid-template-rows: repeat(20, 1fr);
+grid-column-gap: 10px;
+grid-row-gap: 10px;
+}
