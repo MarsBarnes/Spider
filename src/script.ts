@@ -36,34 +36,49 @@ function shuffle(pool: Card[]) {
 
 shuffle(pool);
 
-//deal 44 cards into 10 arrays
-const col1 = [];
-const col2 = [];
-const col3 = [];
-const col4 = [];
-const col5 = [];
-const col6 = [];
-const col7 = [];
-const col8 = [];
-const col9 = [];
-const col10 = [];
+//deal 44 cards into 10 arrays- 1 for each column
+const col1: Card[] = [];
+const col2: Card[] = [];
+const col3: Card[] = [];
+const col4: Card[] = [];
+const col5: Card[] = [];
+const col6: Card[] = [];
+const col7: Card[] = [];
+const col8: Card[] = [];
+const col9: Card[] = [];
+const col10: Card[] = [];
 
+//put all col arrays into 1 grand array
+
+const grandArray: Card[][] = [col1, col2, col3, col4, col5, col6, col7, col8, col9, col10 ]
+
+
+//deal 44 cards facedown
 function dealFaceDown(deck: Card[]) {
-  for (let i = 0; i < 44; i += 10) {
-    console.log(i);
-    col1.push(deck[i]);
-    col2.push(deck[i + 1]);
-    col3.push(deck[i + 2]);
-    col4.push(deck[i + 3]);
-    col5.push(deck[i + 4]);
-    col6.push(deck[i + 5]);
-    col7.push(deck[i + 6]);
-    col8.push(deck[i + 7]);
-    col9.push(deck[i + 8]);
-    col10.push(deck[i + 9]);
-
-    //pop from deck
+  let j: number = 0
+  for (let i = 0; i < 44; i++) {
+    grandArray[j].push(deck[0])
+    j = (j + 1) % 10;
+    deck.shift()
   }
 }
 
 dealFaceDown(deck);
+// console.log(grandArray)
+
+//deal 10 cards faceup
+function dealFaceUp(deck: Card[]) {
+  let j: number = 0;
+  for (let i = 0; i < 10; i++) {
+    deck[0].visible = true;
+    grandArray[j].push(deck[0])
+    j = (j + 1) % 10;
+    deck.shift()
+    console.log(deck[0]);
+  }
+}
+dealFaceUp(deck);
+console.log(grandArray);
+
+export { grandArray };
+export { Card };
