@@ -67,7 +67,7 @@ dealFaceDown(deck);
 // console.log(grandArray)
 
 //deal 10 cards faceup
-function dealFaceUp(deck: Card[]) {
+function dealFaceUp(deck: Card[]): Card[] {
   let j: number = 0;
   for (let i = 0; i < 10; i++) {
     deck[0].visible = true;
@@ -76,9 +76,63 @@ function dealFaceUp(deck: Card[]) {
     deck.shift()
     console.log(deck[0]);
   }
+  return deck
 }
 dealFaceUp(deck);
 console.log(grandArray);
 
+let completedSets = 0;
+//look for 1-13 in array and remove from column
+function removeCompletedSets(col: Card[]): Card[]{
+  if (col.length > 12 && col[col.length - 1].val === 1) {
+    let j: number = 0;
+    for (let i = col.length - 1; i >= 0; i--){
+      j++;
+      
+      if (col[i].val !== j) {
+        return col;
+      }
+      if (j === 13) {
+        completedSets++
+        col.splice(i);
+        return col
+      }
+    }
+  }
+}
+
+function isEndGame(): 'win' | 'lose' | 'continue' {
+  //win condition
+  if (completedSets === 8) {
+    console.log('you win')
+    return 'win';
+  } 
+  //loose conditions
+  if (deck.length === 0) {
+    //TODO: Write loose conditions
+    //0. check that no cols are empty
+    for (col of grandArray) {
+      if (col.length === 0) {
+        return 'continue';
+      }
+    }
+
+    //1. get longest movable section from each col
+    
+
+    //2. for each column, check if the top of the col's movable section could be connected to the bottom of any other col's movable section
+
+    console.log('you lose')
+    return 'lose';
+  }
+}
+
+if (isEndGame() === '') {
+
+}
+
 export { grandArray };
 export { Card };
+export { dealFaceUp };
+export { deck };
+export { removeCompletedSets };
