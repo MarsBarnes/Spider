@@ -97,6 +97,9 @@ function removeCompletedSets(col: Card[]): Card[]{
         col.splice(i);
         return col
       }
+      if (col.length === 0) {
+        col.push({val: 0, visible: true})
+      }
     }
   }
 }

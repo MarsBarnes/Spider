@@ -10,6 +10,9 @@ import {
 function App() {
   const [_, render] = React.useReducer((x) => x + 1, 0);
   const [Holding, setHolding] = React.useState([] as Card[]);
+  let cardSelection: Card[] = [];
+  const [prevCol, setPrevCol] = React.useState([] as Card[]);
+  //let prevCol: Card[];
 
   function cardClick(col: Card[], card: Card) {
     //if holding is empty- move cards to holding column
@@ -23,11 +26,11 @@ function App() {
       //determine if the cardSelection is sequential:
       //select the last occurence of card value in the col and update holding
       const index = col.lastIndexOf(card);
-      const cardSelection = col.splice(index);
+      cardSelection = col.splice(index);
       let isSequential: boolean = true;
 
       for (let i = 1; i < cardSelection.length; i++) {
-        const previous: number = cardSelection[i-1].val;
+        const previous: number = cardSelection[i - 1].val;
         const current: number = cardSelection[i].val;
         if (current + 1 !== previous) {
           isSequential = false;
@@ -38,19 +41,21 @@ function App() {
       //if card slice is sequential or there is only 1 card in the slice
       if (cardSelection.length === 1 || isSequential === true) {
         setHolding(cardSelection);
-      }
-      else {
+        setPrevCol(col);
+        cardSelection = [];
+      } else {
+        col.push(...cardSelection);
+        cardSelection = [];
         throw new Error("card selection must be sequential");
       }
     }
     //if holding is full- move cards to new column
     else {
       //if cardSelection can land on new col
-      if (Holding[0].val + 1 === col[col.length - 1].val) {
+      if (Holding[0].val + 1 === col[col.length - 1].val || col.length === 0) {
         col.push(...Holding);
         setHolding([]);
-        removeCompletedSets(col)
-
+        removeCompletedSets(col);
       } else {
         throw new Error("these cards can't go on this column");
       }
@@ -73,6 +78,16 @@ function App() {
     };
   }
 
+  function holdingClick() {
+    console.log("prevCol" + JSON.stringify(prevCol));
+    console.log("Holding" + JSON.stringify(Holding));
+
+    //prevCol.push(...Holding);
+    Holding.map((card) => prevCol.push(card));
+    setHolding([]);
+    render();
+  }
+
   return (
     <>
       <div className="flex">
@@ -89,7 +104,11 @@ function App() {
         <div className="grid">
           {grandArray.map((col, i) =>
             col.map((card, j) => (
-              <div key={`${i}${j}`} className={`cardDiv`} style={gridStyle(i, j)}>
+              <div
+                key={`${i}${j}`}
+                className={`cardDiv`}
+                style={gridStyle(i, j)}
+              >
                 <p
                   className={card.visible ? "" : "red"}
                   onClick={() => cardClick(col, card)}
@@ -100,7 +119,7 @@ function App() {
             ))
           )}
           {Holding.map((card) => (
-            <div className={`hold cardDiv`}>
+            <div className={`hold cardDiv`} onClick={() => holdingClick()}>
               <p>{card.val}</p>
             </div>
           ))}
