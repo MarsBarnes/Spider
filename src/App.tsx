@@ -5,6 +5,8 @@ import {
   dealFaceUp,
   deck,
   removeCompletedSets,
+  checkForEmptyCols,
+  checkForZeros,
 } from "./script";
 
 function App() {
@@ -88,6 +90,17 @@ function App() {
     render();
   }
 
+  function emptyColClick(col: Card[]) {
+    console.log("prevCol" + JSON.stringify(col));
+    console.log("Holding" + JSON.stringify(Holding));
+    // if (Holding.length > 0) {
+    //   Holding.map((card) => col.push(card));
+    // }
+    col.push(...Holding);
+    setHolding([]);
+    removeCompletedSets(col);
+  }
+
   return (
     <>
       <div className="flex">
@@ -102,6 +115,16 @@ function App() {
           <div className="hold"></div>
         </div> */}
         <div className="grid">
+          <div className="cardDiv sendToBack" style={gridStyle(0, 0)} onClick={() => emptyColClick(grandArray[0])}></div>
+          <div className="cardDiv sendToBack" style={gridStyle(1, 0)} onClick={() => emptyColClick(grandArray[1])}></div>
+          <div className="cardDiv sendToBack" style={gridStyle(2, 0)} onClick={() => emptyColClick(grandArray[2])}></div>
+          <div className="cardDiv sendToBack" style={gridStyle(3, 0)} onClick={() => emptyColClick(grandArray[3])}></div>
+          <div className="cardDiv sendToBack" style={gridStyle(4, 0)} onClick={() => emptyColClick(grandArray[4])}></div>
+          <div className="cardDiv sendToBack" style={gridStyle(5, 0)} onClick={() => emptyColClick(grandArray[5])}></div>
+          <div className="cardDiv sendToBack" style={gridStyle(6, 0)} onClick={() => emptyColClick(grandArray[6])}></div>
+          <div className="cardDiv sendToBack" style={gridStyle(7, 0)} onClick={() => emptyColClick(grandArray[7])}></div>
+          <div className="cardDiv sendToBack" style={gridStyle(8, 0)} onClick={() => emptyColClick(grandArray[8])}></div>
+          <div className="cardDiv sendToBack" style={gridStyle(9, 0)} onClick={() => emptyColClick(grandArray[9])}></div>
           {grandArray.map((col, i) =>
             col.map((card, j) => (
               <div

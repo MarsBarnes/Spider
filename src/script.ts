@@ -76,6 +76,7 @@ function dealFaceUp(deck: Card[]): Card[] {
     deck.shift()
     console.log(deck[0]);
   }
+  
   return deck
 }
 dealFaceUp(deck);
@@ -101,6 +102,18 @@ function removeCompletedSets(col: Card[]): Card[]{
         col.push({val: 0, visible: true})
       }
     }
+  }
+}
+function checkForEmptyCols(col: Card[]):void {
+  if (col.length === 0) {
+    col.push({ val: 0, visible: true})
+  }
+}
+
+
+function checkForZeros(col: Card[]):void {
+  if (col[0].val === 0) {
+    col.pop();
   }
 }
 
@@ -139,3 +152,4 @@ export { Card };
 export { dealFaceUp };
 export { deck };
 export { removeCompletedSets };
+export { checkForEmptyCols, checkForZeros};
