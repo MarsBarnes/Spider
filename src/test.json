@@ -1,0 +1,113 @@
+[
+  [
+    { "val": 1, "visible": false },
+    { "val": 4, "visible": false },
+    { "val": 10, "visible": false },
+    { "val": 5, "visible": false },
+    { "val": 11, "visible": false },
+    { "val": 13, "visible": true },
+    { "val": 2, "visible": true },
+    { "val": 1, "visible": true },
+    { "val": 3, "visible": true }
+  ],
+  [
+    { "val": 8, "visible": false },
+    { "val": 5, "visible": false },
+    { "val": 4, "visible": false },
+    { "val": 4, "visible": false },
+    { "val": 13, "visible": false },
+    { "val": 7, "visible": true },
+    { "val": 9, "visible": true },
+    { "val": 7, "visible": true }
+  ],
+  [
+    { "val": 1, "visible": false },
+    { "val": 2, "visible": false },
+    { "val": 12, "visible": false },
+    { "val": 5, "visible": false },
+    { "val": 12, "visible": false },
+    { "val": 2, "visible": true },
+    { "val": 6, "visible": true },
+    { "val": 6, "visible": true },
+    { "val": 5, "visible": true },
+    { "val": 7, "visible": true },
+    { "val": 3, "visible": true }
+  ],
+  [
+    { "val": 6, "visible": false },
+    { "val": 2, "visible": false },
+    { "val": 8, "visible": false },
+    { "val": 12, "visible": false },
+    { "val": 6, "visible": false },
+    { "val": 3, "visible": true },
+    { "val": 6, "visible": true },
+    { "val": 2, "visible": true },
+    { "val": 2, "visible": true },
+    { "val": 9, "visible": true },
+    { "val": 7, "visible": true },
+    { "val": 6, "visible": true }
+  ],
+  [
+    { "val": 13, "visible": false },
+    { "val": 11, "visible": false },
+    { "val": 11, "visible": false },
+    { "val": 10, "visible": false },
+    { "val": 5, "visible": true },
+    { "val": 4, "visible": true },
+    { "val": 4, "visible": true },
+    { "val": 5, "visible": true },
+    { "val": 10, "visible": true }
+  ],
+  [
+    { "val": 8, "visible": false },
+    { "val": 1, "visible": false },
+    { "val": 8, "visible": false },
+    { "val": 13, "visible": false },
+    { "val": 9, "visible": true },
+    { "val": 11, "visible": true },
+    { "val": 8, "visible": true },
+    { "val": 7, "visible": true },
+    { "val": 4, "visible": true },
+    { "val": 3, "visible": true }
+  ],
+  [
+    { "val": 10, "visible": false },
+    { "val": 7, "visible": false },
+    { "val": 5, "visible": false },
+    { "val": 12, "visible": false },
+    { "val": 8, "visible": true },
+    { "val": 9, "visible": true },
+    { "val": 10, "visible": true },
+    { "val": 3, "visible": true },
+    { "val": 12, "visible": true }
+  ],
+  [
+    { "val": 9, "visible": false },
+    { "val": 1, "visible": false },
+    { "val": 3, "visible": false },
+    { "val": 4, "visible": false },
+    { "val": 10, "visible": true }
+  ],
+  [
+    { "val": 8, "visible": false },
+    { "val": 13, "visible": false },
+    { "val": 1, "visible": false },
+    { "val": 11, "visible": false },
+    { "val": 3, "visible": true },
+    { "val": 11, "visible": true },
+    { "val": 13, "visible": true },
+    { "val": 12, "visible": true },
+    { "val": 1, "visible": true }
+  ],
+  [
+    { "val": 13, "visible": false },
+    { "val": 2, "visible": false },
+    { "val": 11, "visible": false },
+    { "val": 9, "visible": false },
+    { "val": 12, "visible": true },
+    { "val": 10, "visible": true },
+    { "val": 7, "visible": true },
+    { "val": 9, "visible": true },
+    { "val": 6, "visible": true }
+  ]
+]

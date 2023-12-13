@@ -76,5 +76,9 @@
 }
 
 .red {
-  color: red;
+  color: black;
+}
+
+.emptyCol{
+  background-color: #5a5a5a;
 }

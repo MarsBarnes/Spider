@@ -50,16 +50,26 @@ const col10: Card[] = [];
 
 //put all col arrays into 1 grand array
 
-const grandArray: Card[][] = [col1, col2, col3, col4, col5, col6, col7, col8, col9, col10 ]
-
+const grandArray: Card[][] = [
+  col1,
+  col2,
+  col3,
+  col4,
+  col5,
+  col6,
+  col7,
+  col8,
+  col9,
+  col10,
+];
 
 //deal 44 cards facedown
 function dealFaceDown(deck: Card[]) {
-  let j: number = 0
+  let j: number = 0;
   for (let i = 0; i < 44; i++) {
-    grandArray[j].push(deck[0])
+    grandArray[j].push(deck[0]);
     j = (j + 1) % 10;
-    deck.shift()
+    deck.shift();
   }
 }
 
@@ -71,85 +81,85 @@ function dealFaceUp(deck: Card[]): Card[] {
   let j: number = 0;
   for (let i = 0; i < 10; i++) {
     deck[0].visible = true;
-    grandArray[j].push(deck[0])
+    grandArray[j].push(deck[0]);
     j = (j + 1) % 10;
-    deck.shift()
-    console.log(deck[0]);
+    deck.shift();
+    // console.log(deck[0]);
   }
-  
-  return deck
+
+  return deck;
 }
 dealFaceUp(deck);
-console.log(grandArray);
+// console.log(grandArray);
 
 let completedSets = 0;
 //look for 1-13 in array and remove from column
-function removeCompletedSets(col: Card[]): Card[]{
+function removeCompletedSets(col: Card[]): Card[] {
   if (col.length > 12 && col[col.length - 1].val === 1) {
     let j: number = 0;
-    for (let i = col.length - 1; i >= 0; i--){
+    for (let i = col.length - 1; i >= 0; i--) {
       j++;
-      
+
       if (col[i].val !== j) {
         return col;
       }
       if (j === 13) {
-        completedSets++
+        completedSets++;
         col.splice(i);
-        return col
-      }
-      if (col.length === 0) {
-        col.push({val: 0, visible: true})
+        if (col.length) {
+          col[col.length - 1].visible = true;
+        }
+        //check for win
+        if (completedSets === 8) {
+          window.alert("you win");
+        }
+        return col;
       }
     }
   }
 }
-function checkForEmptyCols(col: Card[]):void {
-  if (col.length === 0) {
-    col.push({ val: 0, visible: true})
-  }
-}
 
-
-function checkForZeros(col: Card[]):void {
-  if (col[0].val === 0) {
-    col.pop();
-  }
-}
-
-function isEndGame(): 'win' | 'lose' | 'continue' {
-  //win condition
-  if (completedSets === 8) {
-    console.log('you win')
-    return 'win';
-  } 
+export function loseOrContinue(): "lose" | "continue" {
   //loose conditions
   if (deck.length === 0) {
-    //TODO: Write loose conditions
     //0. check that no cols are empty
-    for (col of grandArray) {
+    for (const col of grandArray) {
       if (col.length === 0) {
-        return 'continue';
+        return "continue";
+      }
+      let largestNumberInSequence = 100;
+      //1. get largestNumberInSequence in the movable section from each col
+      for (let card = col.length - 1; card >= 0; card--) {
+        const currentCard = col[card];
+        largestNumberInSequence = currentCard.val;
+        const nextCard = col[card - 1];
+        if (nextCard && nextCard.visible === true) {
+          if (currentCard.val + 1 === nextCard.val) {
+            largestNumberInSequence = nextCard.val;
+          } else {
+            break;
+          }
+        } else {
+          break;
+        }
+      }
+      console.log(largestNumberInSequence);
+      //2. for each column, check the last value in each column array to see if it is one more that the largestNumberInSequence (aka could be connected)
+      for (const array of grandArray) {
+        if (array[array.length - 1].val === largestNumberInSequence + 1) {
+          return "continue";
+        }
       }
     }
-
-    //1. get longest movable section from each col
-    
-
-    //2. for each column, check if the top of the col's movable section could be connected to the bottom of any other col's movable section
-
-    console.log('you lose')
-    return 'lose';
+    window.alert("you lose");
+    return "lose";
   }
+  return "continue";
 }
-
-if (isEndGame() === '') {
-
-}
+window.loseOrContinue = loseOrContinue;
 
 export { grandArray };
 export { Card };
 export { dealFaceUp };
 export { deck };
 export { removeCompletedSets };
-export { checkForEmptyCols, checkForZeros};

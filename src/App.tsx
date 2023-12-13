@@ -5,8 +5,7 @@ import {
   dealFaceUp,
   deck,
   removeCompletedSets,
-  checkForEmptyCols,
-  checkForZeros,
+  loseOrContinue
 } from "./script";
 
 function App() {
@@ -14,9 +13,13 @@ function App() {
   const [Holding, setHolding] = React.useState([] as Card[]);
   let cardSelection: Card[] = [];
   const [prevCol, setPrevCol] = React.useState([] as Card[]);
-  //let prevCol: Card[];
 
   function cardClick(col: Card[], card: Card) {
+    //if card is not visible, exit
+    if (card.visible === false) {
+      throw new Error("can not select face down cards");
+    }
+
     //if holding is empty- move cards to holding column
     if (Holding.length === 0) {
       console.log(
@@ -58,6 +61,10 @@ function App() {
         col.push(...Holding);
         setHolding([]);
         removeCompletedSets(col);
+        if (prevCol[prevCol.length - 1]) {
+          prevCol[prevCol.length - 1].visible = true;
+        }
+        loseOrContinue()
       } else {
         throw new Error("these cards can't go on this column");
       }
@@ -71,6 +78,7 @@ function App() {
     render();
     grandArray.map((col) => removeCompletedSets(col));
     render();
+    loseOrContinue();
   }
 
   function gridStyle(i: number, j: number) {
@@ -83,22 +91,20 @@ function App() {
   function holdingClick() {
     console.log("prevCol" + JSON.stringify(prevCol));
     console.log("Holding" + JSON.stringify(Holding));
-
-    //prevCol.push(...Holding);
+    //prevCol.push(...Holding); Why does this not work, but the map function does?
     Holding.map((card) => prevCol.push(card));
     setHolding([]);
     render();
   }
 
   function emptyColClick(col: Card[]) {
-    console.log("prevCol" + JSON.stringify(col));
-    console.log("Holding" + JSON.stringify(Holding));
-    // if (Holding.length > 0) {
-    //   Holding.map((card) => col.push(card));
-    // }
     col.push(...Holding);
+    if (prevCol[prevCol.length - 1]) {
+      prevCol[prevCol.length - 1].visible = true;
+    }
     setHolding([]);
     removeCompletedSets(col);
+    loseOrContinue();
   }
 
   return (
@@ -111,20 +117,57 @@ function App() {
         </div>
       </div>
       <main>
-        {/* <div className="flex">
-          <div className="hold"></div>
-        </div> */}
         <div className="grid">
-          <div className="cardDiv sendToBack" style={gridStyle(0, 0)} onClick={() => emptyColClick(grandArray[0])}></div>
-          <div className="cardDiv sendToBack" style={gridStyle(1, 0)} onClick={() => emptyColClick(grandArray[1])}></div>
-          <div className="cardDiv sendToBack" style={gridStyle(2, 0)} onClick={() => emptyColClick(grandArray[2])}></div>
-          <div className="cardDiv sendToBack" style={gridStyle(3, 0)} onClick={() => emptyColClick(grandArray[3])}></div>
-          <div className="cardDiv sendToBack" style={gridStyle(4, 0)} onClick={() => emptyColClick(grandArray[4])}></div>
-          <div className="cardDiv sendToBack" style={gridStyle(5, 0)} onClick={() => emptyColClick(grandArray[5])}></div>
-          <div className="cardDiv sendToBack" style={gridStyle(6, 0)} onClick={() => emptyColClick(grandArray[6])}></div>
-          <div className="cardDiv sendToBack" style={gridStyle(7, 0)} onClick={() => emptyColClick(grandArray[7])}></div>
-          <div className="cardDiv sendToBack" style={gridStyle(8, 0)} onClick={() => emptyColClick(grandArray[8])}></div>
-          <div className="cardDiv sendToBack" style={gridStyle(9, 0)} onClick={() => emptyColClick(grandArray[9])}></div>
+          <div
+            className="cardDiv emptyCol"
+            style={gridStyle(0, 0)}
+            onClick={() => emptyColClick(grandArray[0])}
+          ></div>
+          <div
+            className="cardDiv emptyCol"
+            style={gridStyle(1, 0)}
+            onClick={() => emptyColClick(grandArray[1])}
+          ></div>
+          <div
+            className="cardDiv emptyCol"
+            style={gridStyle(2, 0)}
+            onClick={() => emptyColClick(grandArray[2])}
+          ></div>
+          <div
+            className="cardDiv emptyCol"
+            style={gridStyle(3, 0)}
+            onClick={() => emptyColClick(grandArray[3])}
+          ></div>
+          <div
+            className="cardDiv emptyCol"
+            style={gridStyle(4, 0)}
+            onClick={() => emptyColClick(grandArray[4])}
+          ></div>
+          <div
+            className="cardDiv emptyCol"
+            style={gridStyle(5, 0)}
+            onClick={() => emptyColClick(grandArray[5])}
+          ></div>
+          <div
+            className="cardDiv emptyCol"
+            style={gridStyle(6, 0)}
+            onClick={() => emptyColClick(grandArray[6])}
+          ></div>
+          <div
+            className="cardDiv emptyCol"
+            style={gridStyle(7, 0)}
+            onClick={() => emptyColClick(grandArray[7])}
+          ></div>
+          <div
+            className="cardDiv emptyCol"
+            style={gridStyle(8, 0)}
+            onClick={() => emptyColClick(grandArray[8])}
+          ></div>
+          <div
+            className="cardDiv emptyCol"
+            style={gridStyle(9, 0)}
+            onClick={() => emptyColClick(grandArray[9])}
+          ></div>
           {grandArray.map((col, i) =>
             col.map((card, j) => (
               <div
