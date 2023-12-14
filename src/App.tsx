@@ -5,8 +5,9 @@ import {
   dealFaceUp,
   deck,
   removeCompletedSets,
-  loseOrContinue
+  loseOrContinue,
 } from "./script";
+// import One from './cardImages/1.svg';
 
 function App() {
   const [_, render] = React.useReducer((x) => x + 1, 0);
@@ -64,7 +65,7 @@ function App() {
         if (prevCol[prevCol.length - 1]) {
           prevCol[prevCol.length - 1].visible = true;
         }
-        loseOrContinue()
+        loseOrContinue();
       } else {
         throw new Error("these cards can't go on this column");
       }
@@ -118,53 +119,57 @@ function App() {
       </div>
       <main>
         <div className="grid">
+          {/* TODO: make all emptys look like this */}
+          <div style={gridStyle(0, 0)} className="cardDiv">
+            <img
+              src={`/public/empty.svg`}
+              alt={`empty`}
+              className="card"
+              onClick={() => emptyColClick(grandArray[0])}
+            />
+          </div>
           <div
-            className="cardDiv emptyCol"
-            style={gridStyle(0, 0)}
-            onClick={() => emptyColClick(grandArray[0])}
-          ></div>
-          <div
-            className="cardDiv emptyCol"
+            className="emptyCol"
             style={gridStyle(1, 0)}
             onClick={() => emptyColClick(grandArray[1])}
           ></div>
           <div
-            className="cardDiv emptyCol"
+            className="emptyCol"
             style={gridStyle(2, 0)}
             onClick={() => emptyColClick(grandArray[2])}
           ></div>
           <div
-            className="cardDiv emptyCol"
+            className="emptyCol"
             style={gridStyle(3, 0)}
             onClick={() => emptyColClick(grandArray[3])}
           ></div>
           <div
-            className="cardDiv emptyCol"
+            className="emptyCol"
             style={gridStyle(4, 0)}
             onClick={() => emptyColClick(grandArray[4])}
           ></div>
           <div
-            className="cardDiv emptyCol"
+            className="emptyCol"
             style={gridStyle(5, 0)}
             onClick={() => emptyColClick(grandArray[5])}
           ></div>
           <div
-            className="cardDiv emptyCol"
+            className="emptyCol"
             style={gridStyle(6, 0)}
             onClick={() => emptyColClick(grandArray[6])}
           ></div>
           <div
-            className="cardDiv emptyCol"
+            className="emptyCol"
             style={gridStyle(7, 0)}
             onClick={() => emptyColClick(grandArray[7])}
           ></div>
           <div
-            className="cardDiv emptyCol"
+            className="emptyCol"
             style={gridStyle(8, 0)}
             onClick={() => emptyColClick(grandArray[8])}
           ></div>
           <div
-            className="cardDiv emptyCol"
+            className="emptyCol"
             style={gridStyle(9, 0)}
             onClick={() => emptyColClick(grandArray[9])}
           ></div>
@@ -175,18 +180,23 @@ function App() {
                 className={`cardDiv`}
                 style={gridStyle(i, j)}
               >
-                <p
-                  className={card.visible ? "" : "red"}
+                <img
+                  // src={`/${card.val}.svg`}
+                  src={card.visible ? `/${card.val}.svg` : `/public/0.svg`}
+                  alt={`${card.val}`}
+                  className="card"
                   onClick={() => cardClick(col, card)}
-                >
-                  {card.val}
-                </p>
+                />
               </div>
             ))
           )}
           {Holding.map((card) => (
             <div className={`hold cardDiv`} onClick={() => holdingClick()}>
-              <p>{card.val}</p>
+              <img
+                src={card.visible ? `/${card.val}.svg` : `/public/0.svg`}
+                alt={`${card.val}`}
+                className="card"
+              />
             </div>
           ))}
         </div>
