@@ -2,23 +2,24 @@
 interface Card {
   val: number;
   visible: boolean;
+  id: number;
 }
 
 const pool: Card[] = [];
 
 for (let i = 1; i < 14; i++) {
-  pool.push({ val: i, visible: false });
-  pool.push({ val: i, visible: false });
-  pool.push({ val: i, visible: false });
-  pool.push({ val: i, visible: false });
-  pool.push({ val: i, visible: false });
-  pool.push({ val: i, visible: false });
-  pool.push({ val: i, visible: false });
-  pool.push({ val: i, visible: false });
+  pool.push({ val: i, visible: false, id: i + 0 });
+  pool.push({ val: i, visible: false, id: i+1 });
+  pool.push({ val: i, visible: false, id: i+2 });
+  pool.push({ val: i, visible: false, id: i+3 });
+  pool.push({ val: i, visible: false, id: i+4 });
+  pool.push({ val: i, visible: false, id: i+5 });
+  pool.push({ val: i, visible: false, id: i+6 });
+  pool.push({ val: i, visible: false, id: i+7 });
 }
 
-// console.log(pool);
-// console.log(pool.length);
+console.log(pool);
+console.log(pool.length);
 
 //shuffle deck
 const deck: Card[] = [];

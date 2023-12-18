@@ -1,4 +1,6 @@
 import React from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import {
   Card,
   grandArray,
@@ -7,6 +9,7 @@ import {
   removeCompletedSets,
   loseOrContinue,
 } from "./script";
+import {CardImage} from "./CardImage"
 
 function App() {
   const [_, render] = React.useReducer((x) => x + 1, 0);
@@ -110,59 +113,62 @@ function App() {
 
   return (
     <>
-      <div className="topBar">
-        <h1>Spider Solitaire</h1>
+      <DndProvider backend={HTML5Backend}> 
+        <div className="topBar">
+          <h1>Spider Solitaire</h1>
 
-        <div className={deck.length === 0 ? "deck hide" : "deck"}>
-          <img
-            src={`/public/0.svg`}
-            alt={`deck`}
-            className="card"
-            onClick={() => deckClick()}
-          />
+          <div className={deck.length === 0 ? "deck hide" : "deck"}>
+            <img
+              src={`/public/0.svg`}
+              alt={`deck`}
+              className="card"
+              onClick={() => deckClick()}
+            />
+          </div>
         </div>
-      </div>
-      <main className="center">
-        <div className="grid">
-          {emptyCol.map((num) => (
-            <div style={gridStyle(num, 0)} className="cardDiv">
-              <img
-                src={`/public/empty.svg`}
-                alt={`empty`}
-                className="card"
-                onClick={() => emptyColClick(grandArray[num])}
-              />
-            </div>
-          ))}
-
-          {grandArray.map((col, i) =>
-            col.map((card, j) => (
-              <div
-                key={`${i}${j}`}
-                className={`cardDiv`}
-                style={gridStyle(i, j)}
-              >
+        <main className="center">
+          <div className="grid">
+            {emptyCol.map((num) => (
+              <div style={gridStyle(num, 0)} className="cardDiv">
                 <img
-                  // src={`/${card.val}.svg`}
+                  src={`/public/empty.svg`}
+                  alt={`empty`}
+                  className="card"
+                  onClick={() => emptyColClick(grandArray[num])}
+                />
+              </div>
+            ))}
+          
+            {grandArray.map((col, i) =>
+              col.map((card, j) => (
+                // <div
+                //   key={`${i}${j}`}
+                //   className={`cardDiv`}
+                //   style={gridStyle(i, j)}
+                // >
+                //   <img
+                //     // src={`/${card.val}.svg`}
+                //     src={card.visible ? `/${card.val}.svg` : `/public/0.svg`}
+                //     alt={`${card.val}`}
+                //     className="card"
+                //     onClick={() => cardClick(col, card)}
+                //   />
+                // </div>
+                <CardImage i={i} j={j} col={col} card={card} />
+              ))
+            )}
+            {Holding.map((card) => (
+              <div className={`hold cardDiv`} onClick={() => holdingClick()}>
+                <img
                   src={card.visible ? `/${card.val}.svg` : `/public/0.svg`}
                   alt={`${card.val}`}
                   className="card"
-                  onClick={() => cardClick(col, card)}
                 />
               </div>
-            ))
-          )}
-          {Holding.map((card) => (
-            <div className={`hold cardDiv`} onClick={() => holdingClick()}>
-              <img
-                src={card.visible ? `/${card.val}.svg` : `/public/0.svg`}
-                alt={`${card.val}`}
-                className="card"
-              />
-            </div>
-          ))}
-        </div>
-      </main>
+            ))}
+          </div>
+        </main>
+      </DndProvider>
     </>
   );
 }
