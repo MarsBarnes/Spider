@@ -115,7 +115,7 @@ function App() {
 
         <div className={deck.length === 0 ? "deck hide" : "deck"}>
           <img
-            src={`/public/0.svg`}
+            src={`/0.svg`}
             alt={`deck`}
             className="card"
             onClick={() => deckClick()}
@@ -127,7 +127,7 @@ function App() {
           {emptyCol.map((num) => (
             <div style={gridStyle(num, 0)} className="cardDiv">
               <img
-                src={`/public/empty.svg`}
+                src={`/empty.svg`}
                 alt={`empty`}
                 className="card"
                 onClick={() => emptyColClick(grandArray[num])}
@@ -144,7 +144,7 @@ function App() {
               >
                 <img
                   // src={`/${card.val}.svg`}
-                  src={card.visible ? `/${card.val}.svg` : `/public/0.svg`}
+                  src={card.visible ? `/${card.val}.svg` : `/0.svg`}
                   alt={`${card.val}`}
                   className="card"
                   onClick={() => cardClick(col, card)}
@@ -155,7 +155,7 @@ function App() {
           {Holding.map((card) => (
             <div className={`hold cardDiv`} onClick={() => holdingClick()}>
               <img
-                src={card.visible ? `/${card.val}.svg` : `/public/0.svg`}
+                src={card.visible ? `/${card.val}.svg` : `/0.svg`}
                 alt={`${card.val}`}
                 className="card"
               />

@@ -29,9 +29,9 @@
 .hide {
   visibility: hidden;
 }
-.deck :active {
+/* .deck :active {
   
-}
+} */
 .grid {
   display: grid;
   grid-template-columns: repeat(11, 1fr);

@@ -94,14 +94,14 @@ dealFaceUp(deck);
 
 let completedSets = 0;
 //look for 1-13 in array and remove from column
-function removeCompletedSets(col: Card[]): Card[] {
+function removeCompletedSets(col: Card[]): void {
   if (col.length > 12 && col[col.length - 1].val === 1) {
     let j: number = 0;
     for (let i = col.length - 1; i >= 0; i--) {
       j++;
 
       if (col[i].val !== j) {
-        return col;
+        return;
       }
       if (j === 13) {
         completedSets++;
@@ -113,10 +113,11 @@ function removeCompletedSets(col: Card[]): Card[] {
         if (completedSets === 8) {
           window.alert("you win");
         }
-        return col;
+        return ;
       }
     }
   }
+  return;
 }
 
 export function loseOrContinue(): "lose" | "continue" {
@@ -156,10 +157,10 @@ export function loseOrContinue(): "lose" | "continue" {
   }
   return "continue";
 }
-window.loseOrContinue = loseOrContinue;
+// window.loseOrContinue = loseOrContinue;
 
 export { grandArray };
-export { Card };
+export type { Card };
 export { dealFaceUp };
 export { deck };
 export { removeCompletedSets };
