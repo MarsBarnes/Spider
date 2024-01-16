@@ -161,21 +161,19 @@ function App() {
               </div>
             ))
           )}
-          {Holding.map((card) => (
-            <div className={`hold cardDiv`} onClick={() => holdingClick()}>
-              <img
-                src={card.visible ? `/${card.val}.svg` : `/0.svg`}
-                alt={`${card.val}`}
-                className="card"
-              />
-            </div>
-          ))}
         </div>
       </main>
-      <div
-        className="mousePointer"
-        style={{ left: coords.x, top: coords.y }}
-      ></div>
+      <div className="mousePointer" style={{ left: coords.x, top: coords.y }}>
+        {Holding.map((card) => (
+          <div className={`hold cardDiv`} onClick={() => holdingClick()}>
+            <img
+              src={card.visible ? `/${card.val}.svg` : `/0.svg`}
+              alt={`${card.val}`}
+              className="card"
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

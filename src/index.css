@@ -62,16 +62,14 @@
   border-radius: 5px;
 }
 .hold {
-  grid-column: 11 / 12;
   width: 100px;
-  height:140px;
+  height:30px;
 }
+
 .mousePointer{
   position: absolute;
-  width: 100px;
-  height:140px;
-  border-radius: 5px;
-  background-color: red;
+  pointer-events: none;
+
 }
 .screenSize{
   width: 100%;
