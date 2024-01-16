@@ -16,10 +16,10 @@ function App() {
   const emptyCol = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   const [coords, setCoords] = React.useState({
     x: 0,
-    y: 0
+    y: 0,
   });
 
-  function cardClick(col: Card[], card: Card) {
+  function cardClick(e: React.MouseEvent, col: Card[], card: Card) {
     //if card is not visible, exit
     if (card.visible === false) {
       throw new Error("can not select face down cards");
@@ -53,6 +53,7 @@ function App() {
         setHolding(cardSelection);
         setPrevCol(col);
         cardSelection = [];
+        e.stopPropagation();
       } else {
         col.push(...cardSelection);
         cardSelection = [];
@@ -70,6 +71,7 @@ function App() {
           prevCol[prevCol.length - 1].visible = true;
         }
         loseOrContinue();
+        e.stopPropagation();
       } else {
         throw new Error("these cards can't go on this column");
       }
@@ -102,7 +104,7 @@ function App() {
     render();
   }
 
-  function emptyColClick(col: Card[]) {
+  function emptyColClick(e: React.MouseEvent, col: Card[]) {
     col.push(...Holding);
     if (prevCol[prevCol.length - 1]) {
       prevCol[prevCol.length - 1].visible = true;
@@ -110,15 +112,20 @@ function App() {
     setHolding([]);
     removeCompletedSets(col);
     loseOrContinue();
+    e.stopPropagation();
   }
 
   const handleMouseMove: React.MouseEventHandler<HTMLElement> = (e) => {
     // console.log(e.clientX, e.clientY);
-    setCoords({ x: e.clientX, y: e.clientY});
+    setCoords({ x: e.clientX - 50, y: e.clientY-20 });
   };
 
   return (
-    <div className="screenSize" onMouseMove={handleMouseMove}>
+    <div
+      className="screenSize"
+      onMouseMove={handleMouseMove}
+      onMouseUp={holdingClick}
+    >
       <div className="topBar">
         <h1>Spider Solitaire</h1>
 
@@ -138,8 +145,10 @@ function App() {
               <img
                 src={`/empty.svg`}
                 alt={`empty`}
+                draggable="false"
                 className="card"
-                onClick={() => emptyColClick(grandArray[num])}
+                onMouseDown={(e) => emptyColClick(e, grandArray[num])}
+                onMouseUp={(e) => emptyColClick(e, grandArray[num])}
               />
             </div>
           ))}
@@ -154,9 +163,13 @@ function App() {
                 <img
                   // src={`/${card.val}.svg`}
                   src={card.visible ? `/${card.val}.svg` : `/0.svg`}
+                  draggable="false"
                   alt={`${card.val}`}
                   className="card"
-                  onClick={() => cardClick(col, card)}
+                  onMouseDown={(e) => cardClick(e, col, card)}
+                  onMouseUp={(e) => {
+                    cardClick(e, col, card);
+                  }}
                 />
               </div>
             ))

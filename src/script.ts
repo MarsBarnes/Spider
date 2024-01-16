@@ -120,6 +120,7 @@ function removeCompletedSets(col: Card[]): void {
   return;
 }
 
+//TODO: ensure this works.
 export function loseOrContinue(): "lose" | "continue" {
   //loose conditions
   if (deck.length === 0) {
@@ -128,6 +129,8 @@ export function loseOrContinue(): "lose" | "continue" {
       if (col.length === 0) {
         return "continue";
       }
+    }
+    for (const col of grandArray) {
       let largestNumberInSequence = 100;
       //1. get largestNumberInSequence in the movable section from each col
       for (let card = col.length - 1; card >= 0; card--) {
@@ -157,7 +160,7 @@ export function loseOrContinue(): "lose" | "continue" {
   }
   return "continue";
 }
-// window.loseOrContinue = loseOrContinue;
+window.loseOrContinue = loseOrContinue;
 
 export { grandArray };
 export type { Card };
