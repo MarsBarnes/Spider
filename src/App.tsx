@@ -14,6 +14,10 @@ function App() {
   let cardSelection: Card[] = [];
   const [prevCol, setPrevCol] = React.useState([] as Card[]);
   const emptyCol = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const [coords, setCoords] = React.useState({
+    x: 0,
+    y: 0
+  });
 
   function cardClick(col: Card[], card: Card) {
     //if card is not visible, exit
@@ -108,8 +112,13 @@ function App() {
     loseOrContinue();
   }
 
+  const handleMouseMove: React.MouseEventHandler<HTMLElement> = (e) => {
+    // console.log(e.clientX, e.clientY);
+    setCoords({ x: e.clientX, y: e.clientY});
+  };
+
   return (
-    <>
+    <div className="screenSize" onMouseMove={handleMouseMove}>
       <div className="topBar">
         <h1>Spider Solitaire</h1>
 
@@ -163,7 +172,11 @@ function App() {
           ))}
         </div>
       </main>
-    </>
+      <div
+        className="mousePointer"
+        style={{ left: coords.x, top: coords.y }}
+      ></div>
+    </div>
   );
 }
 
