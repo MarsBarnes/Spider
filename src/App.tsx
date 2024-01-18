@@ -127,7 +127,7 @@ function App() {
       onMouseUp={holdingClick}
     >
       <div className="topBar">
-        <h1>Spider Solitaire</h1>
+        <h1 className="SpiderSolitareText">Spider Solitaire</h1>
 
         <div className={deck.length === 0 ? "deck hide" : "deck"}>
           <img
