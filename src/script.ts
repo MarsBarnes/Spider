@@ -160,6 +160,7 @@ export function loseOrContinue(): "lose" | "continue" {
   }
   return "continue";
 }
+// @ts-expect-error It's handy to have this available in the console
 window.loseOrContinue = loseOrContinue;
 
 export { grandArray };
